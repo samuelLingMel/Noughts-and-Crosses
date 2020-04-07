@@ -119,12 +119,21 @@ var checkDiagonalStartTopRight = function() {
     }
 } 
 
+var handleResetBtn = function() {
+    turnCounter = 0;
+    gameEnd = false;
+    gameSquares.forEach(function(gameSquare) {
+        gameSquare.textContent = '';
+    })
+    winner.textContent = '';
+}
+
 // add event listener to each square
 gameSquares.forEach(function(gameSquare) {
     gameSquare.addEventListener('click', handleSquareClick);
 })
 
-
+document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
 
 
 

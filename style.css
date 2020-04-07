@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* column-gap:; */
+    width: 300px;
+}
+
+.game-square {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+
+}

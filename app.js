@@ -4,6 +4,7 @@ var winner = document.querySelector('.winner');
 var turnCounter = 0;
 var gameEnd = false;
 
+
 var handleSquareClick = function(event) {
     if (checkGameEnded() === false) {
         
@@ -129,12 +130,30 @@ var handleResetBtn = function() {
 }
 
 // add event listener to each square
+
+// generate game board using for loops 
+var sizeInput = 6;
+resultsGrid = [];
+
+// for loop to add arrays into gameboard 
+var createGrid = function(num) {
+    for (var index1 = 0; index1 < num; index1++) {
+        let row = [];
+        resultsGrid.push(row);
+        for (var index2 = 0; index2 < num; index2++) {
+            let string = `${gameSquares[sizeInput * index1 + index2].textContent}`;
+            row.push(string);
+        }
+    }
+}
+
+createGrid(sizeInput);
+
+console.log(resultsGrid)
 gameSquares.forEach(function(gameSquare) {
     gameSquare.addEventListener('click', handleSquareClick);
 })
 
 document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
-
-
 
 

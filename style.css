@@ -4,11 +4,33 @@
 
 .game-board {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 600px;
+}
+.game-board-one {
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* column-gap:; */
+    width: 300px;
+}
+.game-board-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 300px;
+}
+.game-board-three {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 300px;
+}
+.game-board-four {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     width: 300px;
 }
 
+.hidden {
+    display: none;
+}
 .game-square {
     border: 1px solid black;
     width: 100px;

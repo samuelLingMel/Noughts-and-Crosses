@@ -26,7 +26,7 @@
 //         if no one can win then it is a tie
 
 // generate game board using for loops 
-gameBoard = [];
+resultsGrid = [];
 
 // end product = make 3x3 grid using 3 arrays of 3 in an array
 
@@ -67,6 +67,22 @@ document.querySelector('.game-board')
 // problem is figuring out the possible combinations and telling them to the computer and also checking each one as play is progressing possibly
 // more calculations but spread out throughout the match possible a lot more at the start
 
+------------------------------------------------------------------------------------------------------------------------------
+make a grid which can be changed by input by the user ( can be 3 or 6 now)
 
+// write a function to take the information from the game board and place it into the results grid
+// needs to be placing it at the right spots
 
+// tweak the check win function to check the results grid instead of gameboard
+
+// make a next game board button
+// will have the function to keep turnCounter reset if game has ended reset call back the function to store the game board in grid and have a blank gameboard ready for next game
+
+// have something to show whose turn it is
+
+// need toggle? to check which game mode
+
+// a place to put the rules
+
+// start button?
 

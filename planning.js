@@ -1,28 +1,47 @@
-var gameSquares = document.querySelectorAll('game-square');
+// var gameSquares = document.querySelectorAll('game-square');
 
+
+// base game
 // add event listener to each square
-    // on click puts down a O or X in an empty square
-    // is the square empty
-    // need a turn counter so on odd turns O and even X
-    // increment turn counter
-    // checks if there is a winner
-    // only need to be checked after turn 5 (earliest possible someone can win)
+//     on click puts down a O or X in an empty square
+//     is the square empty
+//     need a turn counter so on odd turns O and even X
+//     increment turn counter
+//     checks if there is a winner
+//     only need to be checked after turn 5 (earliest possible someone can win)
 // check winner function 
-    // winner is defined by three in a row
-        // need 8 checks of each possiblity of 3 in a row
-        // check if each condition if it can't be achieved and then add a marker so they dont need to be run them out
-        // check first row
-        // check second row
-        // check third row
-        // check first column
-        // check second column
-        // check third column
-        // check diagonal top left to bottom right
-        // check diagonal bottom left to top right
-        // announce the winner
-    // or check if no winner can be had
-        // if no one can win then it is a tie
+//     winner is defined by three in a row
+//         need 8 checks of each possiblity of 3 in a row
+//         check if each condition if it can't be achieved and then add a marker so they dont need to be run them out
+//         check first row
+//         check second row
+//         check third row
+//         check first column
+//         check second column
+//         check third column
+//         check diagonal top left to bottom right
+//         check diagonal bottom left to top right
+//         announce the winner
+//     or check if no winner can be had
+//         if no one can win then it is a tie
 
+// generate game board using for loops 
+gameBoard = [];
+
+// end product = make 3x3 grid using 3 arrays of 3 in an array
+
+// for loop to add arrays into gameboard 
+for (var index1 = 0; index1 < 3; index1++) {
+    let row = [];
+    gameBoard.push(row);
+    for (var index2 = 0; index2 < 3; index2++) {
+        let string = "";
+        row.push(string);
+    }
+}
+console.log(gameBoard);
+
+document.querySelector('.game-board')
 
 // make everything scalable to a 6x6 or 9x9 grid but it is still 3 in a row to win and see who has the highest score
 // my options for scalability
@@ -39,7 +58,7 @@ var gameSquares = document.querySelectorAll('game-square');
 
 
 
-// 
+
 // 2 is it possible to have all possible combinations already in a variable
 // as the game is played each possibility it would fill out the variables
 // as soon as the variable has both an X and O it would add a class which would discount it when counting
@@ -47,8 +66,6 @@ var gameSquares = document.querySelectorAll('game-square');
 // at the end it would just count the number of class to get the point totals
 // problem is figuring out the possible combinations and telling them to the computer and also checking each one as play is progressing possibly
 // more calculations but spread out throughout the match possible a lot more at the start
-
-
 
 
 

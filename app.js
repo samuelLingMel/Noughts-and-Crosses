@@ -3,7 +3,10 @@ var gameSquares = document.querySelectorAll('.game-square');
 var winner = document.querySelector('.winner');
 var turnCounter = 0;
 var gameEnd = false;
-
+var sizeInput = 3;
+var xScore = 0;
+var oScore = 0;
+var resultsGrid = [];
 
 var handleSquareClick = function(event) {
     if (checkGameEnded() === false) {
@@ -35,89 +38,134 @@ var handleSquareClick = function(event) {
 }
     
 var checkGameEnded = function() {
-    if (turnCounter === 9) {
+    if (sizeInput === 3) {
+        if (turnCounter === sizeInput ** 2) {
+                return true;
+        } else if (document.querySelector('.winner').textContent !== "") {
             return true;
-    } else if (document.querySelector('.winner').textContent !== "") {
-        return true;
-    } else {
-        return false;
+        } else {
+            return false;
+        }
     }
-
 }
 
 // check winner function 
 // winner is defined by three in a row
 var checkWinner = function() {
-    // need 8 checks of each possiblity of 3 in a row
-    // check first row
-    checkRow(1);
-    // check second row
-    checkRow(2);
-    // check third row
-    checkRow(3);
-    // check first column
-    checkColumn(1);
-    // check second column
-    checkColumn(2);
-    // check third column
-    checkColumn(3);
-    // check diagonal top left to bottom right
-    checkDiagonalStartTopLeft();
-    // check diagonal top right to bottom left
-    checkDiagonalStartTopRight();
-    if (checkGameEnded() === true) {
-        if (winner.textcontent === '') {
-            winner.textContent = 'The game is tied';
+    if (sizeInput !== 3) {
+        // need 8 checks of each possiblity of 3 in a row
+        
+        // check first row
+        checkRow(1);
+        // check second row
+        checkRow(2);
+        // check third row
+        checkRow(3);
+        // check first column
+        
+        checkColumn(1);
+        // check second column
+        checkColumn(2);
+        // check third column
+        checkColumn(3);
+        
+        // check diagonal top left to bottom right
+        checkDiagonalStartTopLeft();
+        
+        // check diagonal top right to bottom left
+        checkDiagonalStartTopRight();
+        
+        if (checkGameEnded() === true) {
+            if (winner.textcontent === '') {
+                winner.textContent = 'The game is tied';
+            }
         }
+    } else if (turnCounter === 9) {
+        createGrid(sizeInput);
+        // checkRow();
+        checkColumn();
     }
 }    
 
+var check3Same = function(arr) {
+    for (var index = 0; index < arr.length - 2; index++) {
+        if (arr[index] === arr[index + 1] && arr[index + 1] === arr[index + 2]) {
+            if (arr[index] === 'X') {
+                xScore++;
+            } else if (arr[index] === 'O') {
+                oScore++;
+            }
+        } 
+    } 
+}
+
 var checkRow = function(num) {
-    if (gameSquares[3 * (num - 1)].textContent !== '') {
-        checkArray = [];
-        for (var index = 3 * (num - 1); index < 3 * num; index++) {
-            checkArray.push(gameSquares[index].textContent);
+    if (sizeInput === 3) {
+        if (gameSquares[3 * (num - 1)].textContent !== '') {
+            checkArray = [];
+            for (var index = 3 * (num - 1); index < 3 * num; index++) {
+                checkArray.push(gameSquares[index].textContent);
+            }
+            if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
+                winner.textContent = (checkArray[0] + ' is the winner!');
+            }
         }
-        if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
-            winner.textContent = (checkArray[0] + ' is the winner!');
+    } else {
+        for (var index1 = 0; index1 < sizeInput; index1++) {
+            check3Same(resultsGrid[index1]);
         }
     }
 }
 
 var checkColumn = function(num) {
-    if (gameSquares[num - 1].textContent !== '') { 
-        checkArray = [];
-        for (var index = num - 1; index < 6 + num; index += 3) {
-            checkArray.push(gameSquares[index].textContent);
+    if (sizeInput !== 3) {
+        if (gameSquares[num - 1].textContent !== '') { 
+            checkArray = [];
+            for (var index = num - 1; index < 6 + num; index += 3) {
+                checkArray.push(gameSquares[index].textContent);
+            }
+            if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
+                winner.textContent = (checkArray[0] + ' is the winner!');
+            }
         }
-        if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
-            winner.textContent = (checkArray[0] + ' is the winner!');
+    } else {
+        for (var index1 = 0; index1 < sizeInput; index1++) {
+            var resultsArray =[];
+            for (var index2 = 0; index2 < sizeInput; index2++) {
+                resultsArray.push(resultsGrid[index2][index1]);
+                console.log(resultsArray)
+            }
+            check3Same(resultsArray);
         }
     }
 }
 
 var checkDiagonalStartTopLeft = function() {
-    if (gameSquares[0].textContent !== '') {
-        checkArray = [];
-        for (var index = 0; index < 9; index += 4) {
-            checkArray.push(gameSquares[index].textContent);
-        }
-        if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
-            winner.textContent = (checkArray[0] + ' is the winner!');
+    if (sizeInput === 3) { 
+        if (gameSquares[0].textContent !== '') {
+            checkArray = [];
+            for (var index = 0; index < 9; index += 4) {
+                checkArray.push(gameSquares[index].textContent);
+            }
+            if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
+                winner.textContent = (checkArray[0] + ' is the winner!');
+            }
         }
     }
 }
 
 var checkDiagonalStartTopRight = function() {
-    if (gameSquares[2].textContent !== '') {
-        checkArray = [];
-        for (var index = 2; index < 7; index += 2) {
-            checkArray.push(gameSquares[index].textContent);
+    if (sizeInput === 3) {
+        if (gameSquares[2].textContent !== '') {
+            checkArray = [];
+            for (var index = 2; index < 7; index += 2) {
+                checkArray.push(gameSquares[index].textContent);
+            }
+            if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
+                winner.textContent = (checkArray[0] + ' is the winner!');
+            }
         }
-        if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
-            winner.textContent = (checkArray[0] + ' is the winner!');
-        }
-    }
+    } 
 } 
 
 var handleResetBtn = function() {
@@ -132,8 +180,7 @@ var handleResetBtn = function() {
 // add event listener to each square
 
 // generate game board using for loops 
-var sizeInput = 6;
-resultsGrid = [];
+
 
 // for loop to add arrays into gameboard 
 var createGrid = function(num) {
@@ -147,12 +194,13 @@ var createGrid = function(num) {
     }
 }
 
-createGrid(sizeInput);
 
-console.log(resultsGrid)
+
+console.log(resultsGrid);
+
 gameSquares.forEach(function(gameSquare) {
     gameSquare.addEventListener('click', handleSquareClick);
-})
+});
 
 document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
 

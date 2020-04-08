@@ -80,9 +80,13 @@ make a grid which can be changed by input by the user ( can be 3 or 6 now)
 
 // have something to show whose turn it is
 
-// need toggle? to check which game mode
+// need toggle? to check which game mode 3x3 or 6x6
 
 // a place to put the rules
 
 // start button?
+
+// fix  bugs
+
+// when to check results 3x3 vs 6v6
 

@@ -48,6 +48,30 @@ console.log(resultsGrid);
 4: (6) ["0, 4", "1, 4", "2, 4", "3, 4", "4, 4", "5, 4"]
 5: (6) ["0, 5", "1, 5", "2, 5", "3, 5", "4, 5", "5, 5"]
 
+00 01 02  09 10 11  18 19 20 
+03 04 05  12 13 14  21 22 23
+06 07 08  15 16 17  24 25 26
+
+27 28 29  36 37 38  45 46 47
+30 31 32  39 40 41  48 49 50
+33 34 35  42 43 44  51 52 53
+
+54 55 56  63 64 65  72 73 74
+57 58 59  66 67 68  75 76 77
+60 61 62  69 70 71  78 79 80
+
+00 01 02  09 10 11
+03 04 05  12 13 14 
+06 07 08  15 16 17
+
+18 19 20  27 28 29
+21 22 23  30 31 32
+24 25 26  33 34 35
+
+00 01 02
+03 04 05
+06 07 08
+
 // make everything scalable to a 6x6 or 9x9 grid but it is still 3 in a row to win and see who has the highest score
 // my options for scalability
 // 1 use for or forEach loops to go through each grid and search for 3 Xs or Os in a row
@@ -73,25 +97,53 @@ console.log(resultsGrid);
 // more calculations but spread out throughout the match possible a lot more at the start
 
 // ------------------------------------------------------------------------------------------------------------------------------
-// make a grid which can be changed by input by the user ( can be 3 or 6 now)
+make a grid which can be changed by input by the user ( can be 3 or 6 now)
 
-// write a function to take the information from the game board and place it into the results grid
-// needs to be placing it at the right spots
+write a function to take the information from the game board and place it into the results grid
+needs to be placing it at the right spots
 
-// tweak the check win function to check the results grid instead of gameboard
+tweak the check win function to check the results grid instead of gameboard
 
-// make a next game board button
+
+add heading
+
+add new game + toggle 
+need toggle? to check which game mode 3x3 or 6x6
+add functionality to toggle
+
+
+have something to show whose turn it is
+
+// description of game
+something like:
+This is Noughts and Crosses Plus. Game play is the same as normal Noughts and Crosses, take turns placing an O or X in a square. Where it is different is that after 4 games of normal Noughts and Crosses then is compiles the boards from all four games and you get points for each 3 in a row amongst the new board. Now there is more strategy so don't give up if you lose a board just keep on filling it up. Try and beat the other persons score. Good luck.
+Slide Show?
+
+start button?
+features 
+- makes board unhidden toggle('hidden') if statement for different board states
+- shows reset button for 3x3
+- shows whose turn it is (textContent = It is Xs turn) 
+- set sizeInput = 3 or 6
+- change colours for 6x6 entails, body color white, body background color black, game-board border white
+- hide toggle
+-change title to Noughts and Crosses + add font-family
+
+end button must mirror start button but you know, the opposite to reset
+
+when to check results 3x3 vs 6v6
+
 // will have the function to keep turnCounter reset if game has ended reset call back the function to store the game board in grid and have a blank gameboard ready for next game
 
-// have something to show whose turn it is
+// make a next game board button
+// appear only in 6x6
 
-// need toggle? to check which game mode 3x3 or 6x6
 
 // a place to put the rules
+// bottom of the page after 6x6 mode is chosen?
 
-// start button?
+//scores for 6x6 
 
 // fix  bugs
 
-// when to check results 3x3 vs 6v6
 

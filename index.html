@@ -10,7 +10,7 @@
     <h2>Noughts and Crosses</h2>
     
 <section class="game-board">
-    <section class="game-board-one">
+    <section class="game-board-one hidden gb">
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
@@ -21,7 +21,7 @@
         <div class="game-square third-row third-column"></div>
         <div class="game-square third-row third-column"></div>
     </section>
-    <section class="game-board-two hidden">
+    <section class="game-board-two hidden gb">
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
@@ -32,7 +32,7 @@
         <div class="game-square third-row third-column"></div>
         <div class="game-square third-row third-column"></div>
     </section>
-    <section class="game-board-three hidden">
+    <section class="game-board-three hidden gb">
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
@@ -43,7 +43,7 @@
         <div class="game-square third-row third-column"></div>
         <div class="game-square third-row third-column"></div>
     </section>
-    <section class="game-board-four hidden">
+    <section class="game-board-four hidden gb">
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
         <div class="game-square first-row first-column"></div>
@@ -55,12 +55,15 @@
         <div class="game-square third-row third-column"></div>
     </section>
 </section>
+<p class="whose-turn"></p>
 <p class="winner"></p>
-<button class="reset-btn">Reset</button>
+<button class="reset-btn hidden">Reset</button>
+<button class="start-btn">Start</button>
+<button class="end-btn hidden">End</button>
 <footer>
-    <toggle class="game-mode">O&X+</toggle>
+    <toggle class="game-mode-text">Noughts and Crosses+</toggle>
     <label class="switch">
-        <input type="checkbox">
+        <input class="game-mode" type="checkbox">
         <span class="slider round"></span>
     </label>
 </footer>

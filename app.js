@@ -2,43 +2,13 @@
 var gameSquares = document.querySelectorAll('.game-square');
 var winner = document.querySelector('.winner');
 var turnCounter = 0;
-var gameEnd = false;
+var gameEnd = true;
 var sizeInput = 3;
 var xScore = 0;
 var oScore = 0;
 var resultsGrid = [];
 
-var handleSquareClick = function(event) {
-    if (checkGameEnded() === false) {
-        
-        // is the square empty?
-        if (event.target.textContent === '') {
-            
-            // checks turn counter so on odd turns O and even X
-            if (turnCounter % 2 == 0) {
-                
-                // on click puts down a O or X in an empty square
-                event.target.textContent = 'X';
-                
-                // increment turn counter
-                turnCounter++;
-            } else {
-                event.target.textContent = 'O';
-                
-                // increment turn counter
-                turnCounter++;
-            }  
-            // only need to be checked after turn 5 (earliest possible someone can win)
-        }
-        if (turnCounter > 4) {
-            // checks if there is a winner
-            checkWinner();
-        }
-    }       
-}
-    
 var checkGameEnded = function() {
-    if (sizeInput === 3) {
         if (turnCounter === sizeInput ** 2) {
                 return true;
         } else if (document.querySelector('.winner').textContent !== "") {
@@ -46,7 +16,6 @@ var checkGameEnded = function() {
         } else {
             return false;
         }
-    }   
 }
 
 var checkWinner = function() {
@@ -77,6 +46,8 @@ var checkWinner = function() {
             if (winner.textcontent === '') {
                 winner.textContent = 'The game is tied';
             }
+            document.querySelector('.reset-btn').classList.toggle('hidden');
+            document.querySelector('.end-btn').classList.toggle('hidden');
         }
     } else {
         createGrid(sizeInput);
@@ -135,7 +106,6 @@ var checkColumn = function(num) {
             var resultsArray = [];
             for (var index2 = 0; index2 < sizeInput; index2++) {
                 resultsArray.push(resultsGrid[index2][index1]);
-                console.log(resultsArray)
             }
             check3Same(resultsArray);
         }
@@ -199,7 +169,6 @@ var checkDiagonalStartTopRight = function() {
                     }
                 }
             }
-            console.log(resultsArray);
             check3Same(resultsArray);
         } for (var index1 = 0; index1 < sizeInput - 1; index1++) {
             var resultsArray = [];
@@ -210,7 +179,6 @@ var checkDiagonalStartTopRight = function() {
                     }
                 }
             }
-            console.log(resultsArray);
             check3Same(resultsArray);
         }
     }
@@ -225,21 +193,86 @@ var handleResetBtn = function() {
     winner.textContent = '';
 }
 
+var handleEndBtn = function() {
+
+}
+
 var createGrid = function(num) {
     for (var index1 = 0; index1 < num; index1++) {
         let row = [];
-        resultsGrid.push(row);
         for (var index2 = 0; index2 < num; index2++) {
             let string = `${gameSquares[sizeInput * index1 + index2].textContent}`;
             row.push(string);
         }
+        resultsGrid.push(row);
     }
 }
+
+
+var handleSquareClick = function(event) {
+    if (checkGameEnded() === false) {
+        // is the square empty?
+        if (event.target.textContent === '') {
+            
+            // checks turn counter so on odd turns O and even X
+            if (turnCounter % 2 == 0) {
+                
+                // on click puts down a O or X in an empty square
+                event.target.textContent = 'X';
+                
+                // increment turn counter
+                turnCounter++;
+
+                document.querySelector('.whose-turn').textContent = "It is Os turn now.";
+            } else {
+                event.target.textContent = 'O';
+                
+                // increment turn counter
+                turnCounter++;
+                document.querySelector('.whose-turn').textContent = "It is Xs turn now.";
+            }  
+        }
+        if (sizeInput === 3) {
+            // only need to be checked after turn 5 (earliest possible someone can win)
+            if (turnCounter > 4) {
+                // checks if there is a winner
+                checkWinner();
+            }
+        } else {
+            if (turnCounter === 36) {
+                checkWinner();
+            }
+        }
+    }       
+}
+
+var handleGMToggle = function(event) {
+    if (gameEnd === true) {
+        document.querySelectorAll('.gb').forEach(function(partOfGameBoard) {
+            partOfGameBoard.classList.toggle('hidden');
+        })
+        gameEnd = false;
+        sizeInput = 6;
+    }
+}
+
+var handleStartBtn = function(event) {
+    if (sizeInput === 3) {
+        document.querySelector('.game-board-one').classList.toggle('hidden');
+        document.querySelector('.whose-turn').textContent = 'It is Xs turn now.';
+        document.querySelector('.game-mode').classList.toggle('hidden');
+        document.querySelector('.game-mode-text').classList.toggle('hidden');
+        document.querySelector('.start-btn').classList.toggle('hidden');
+    } 
+}
+
+
+document.querySelector('.end-btn').addEventListener('click', handleEndBtn);
+document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
+document.querySelector('.game-mode').addEventListener('click', handleGMToggle);
 
 gameSquares.forEach(function(gameSquare) {
     gameSquare.addEventListener('click', handleSquareClick);
 });
 
-document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
-
-
+document.querySelector('.start-btn').addEventListener('click', handleStartBtn)

@@ -46,13 +46,11 @@ var checkGameEnded = function() {
         } else {
             return false;
         }
-    }
+    }   
 }
 
-// check winner function 
-// winner is defined by three in a row
 var checkWinner = function() {
-    if (sizeInput !== 3) {
+    if (sizeInput === 3) {
         // need 8 checks of each possiblity of 3 in a row
         
         // check first row
@@ -80,20 +78,24 @@ var checkWinner = function() {
                 winner.textContent = 'The game is tied';
             }
         }
-    } else if (turnCounter === 9) {
+    } else {
         createGrid(sizeInput);
-        // checkRow();
+        checkRow();
         checkColumn();
+        checkDiagonalStartTopLeft();
+        checkDiagonalStartTopRight();
     }
 }    
 
 var check3Same = function(arr) {
-    for (var index = 0; index < arr.length - 2; index++) {
-        if (arr[index] === arr[index + 1] && arr[index + 1] === arr[index + 2]) {
-            if (arr[index] === 'X') {
-                xScore++;
-            } else if (arr[index] === 'O') {
-                oScore++;
+    if (arr.length > 2) {
+        for (var index = 0; index < arr.length - 2; index++) {
+            if (arr[index] === arr[index + 1] && arr[index + 1] === arr[index + 2]) {
+                if (arr[index] === 'X') {
+                    xScore++;
+                } else if (arr[index] === 'O') {
+                    oScore++;
+                }
             }
         } 
     } 
@@ -118,7 +120,7 @@ var checkRow = function(num) {
 }
 
 var checkColumn = function(num) {
-    if (sizeInput !== 3) {
+    if (sizeInput === 3) {
         if (gameSquares[num - 1].textContent !== '') { 
             checkArray = [];
             for (var index = num - 1; index < 6 + num; index += 3) {
@@ -130,7 +132,7 @@ var checkColumn = function(num) {
         }
     } else {
         for (var index1 = 0; index1 < sizeInput; index1++) {
-            var resultsArray =[];
+            var resultsArray = [];
             for (var index2 = 0; index2 < sizeInput; index2++) {
                 resultsArray.push(resultsGrid[index2][index1]);
                 console.log(resultsArray)
@@ -151,6 +153,28 @@ var checkDiagonalStartTopLeft = function() {
                 winner.textContent = (checkArray[0] + ' is the winner!');
             }
         }
+    } else {
+        for (var index1 = sizeInput - 1; index1 >= 0; index1--) {
+            var resultsArray = [];
+            for (var index2 = 0; index2 < sizeInput; index2++) {
+                if (resultsGrid[index1+index2] !== undefined) { 
+                    if (resultsGrid[index1+index2][index2] !== undefined) {
+                    resultsArray.push(resultsGrid[index1+index2][index2]);
+                    }
+                }
+            }
+            check3Same(resultsArray);
+        } for (var index1 = 1; index1 < sizeInput; index1++) {
+            var resultsArray = [];
+            for (var index2 = 0; index2 < sizeInput; index2++) {
+                if (resultsGrid[index2] !== undefined) { 
+                    if (resultsGrid[index2][index2 + index1] !== undefined) {
+                    resultsArray.push(resultsGrid[index2][index2 + index1]);
+                    }
+                }
+            }
+            check3Same(resultsArray);
+        }
     }
 }
 
@@ -165,7 +189,31 @@ var checkDiagonalStartTopRight = function() {
                 winner.textContent = (checkArray[0] + ' is the winner!');
             }
         }
-    } 
+    } else {
+        for (var index1 = 0; index1 < sizeInput; index1++) {
+            var resultsArray = [];
+            for (var index2 = 0; index2 < sizeInput; index2++) {
+                if (resultsGrid[index1 + index2] !== undefined) { 
+                    if (resultsGrid[index1 + index2][sizeInput - 1 - index2] !== undefined) {
+                    resultsArray.push(resultsGrid[index1 + index2][sizeInput - 1 - index2]);
+                    }
+                }
+            }
+            console.log(resultsArray);
+            check3Same(resultsArray);
+        } for (var index1 = 0; index1 < sizeInput - 1; index1++) {
+            var resultsArray = [];
+            for (var index2 = 0; index2 < sizeInput; index2++) {
+                if (resultsGrid[index2] !== undefined) { 
+                    if (resultsGrid[index2][index1 - index2] !== undefined) {
+                    resultsArray.push(resultsGrid[index2][index1 - index2]);
+                    }
+                }
+            }
+            console.log(resultsArray);
+            check3Same(resultsArray);
+        }
+    }
 } 
 
 var handleResetBtn = function() {
@@ -177,12 +225,6 @@ var handleResetBtn = function() {
     winner.textContent = '';
 }
 
-// add event listener to each square
-
-// generate game board using for loops 
-
-
-// for loop to add arrays into gameboard 
 var createGrid = function(num) {
     for (var index1 = 0; index1 < num; index1++) {
         let row = [];
@@ -193,10 +235,6 @@ var createGrid = function(num) {
         }
     }
 }
-
-
-
-console.log(resultsGrid);
 
 gameSquares.forEach(function(gameSquare) {
     gameSquare.addEventListener('click', handleSquareClick);

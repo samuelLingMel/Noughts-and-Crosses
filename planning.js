@@ -31,17 +31,22 @@ resultsGrid = [];
 // end product = make 3x3 grid using 3 arrays of 3 in an array
 
 // for loop to add arrays into gameboard 
-for (var index1 = 0; index1 < 3; index1++) {
+for (var index1 = 0; index1 < 6; index1++) {
     let row = [];
-    gameBoard.push(row);
-    for (var index2 = 0; index2 < 3; index2++) {
-        let string = "";
+    resultsGrid.push(row);
+    for (var index2 = 0; index2 < 6; index2++) {
+        let string = `${index2}, ${index1}`;
         row.push(string);
     }
 }
-console.log(gameBoard);
+console.log(resultsGrid);
 
-document.querySelector('.game-board')
+0: (6) ["0, 0", "1, 0", "2, 0", "3, 0", "4, 0", "5, 0"]
+1: (6) ["0, 1", "1, 1", "2, 1", "3, 1", "4, 1", "5, 1"]
+2: (6) ["0, 2", "1, 2", "2, 2", "3, 2", "4, 2", "5, 2"]
+3: (6) ["0, 3", "1, 3", "2, 3", "3, 3", "4, 3", "5, 3"]
+4: (6) ["0, 4", "1, 4", "2, 4", "3, 4", "4, 4", "5, 4"]
+5: (6) ["0, 5", "1, 5", "2, 5", "3, 5", "4, 5", "5, 5"]
 
 // make everything scalable to a 6x6 or 9x9 grid but it is still 3 in a row to win and see who has the highest score
 // my options for scalability
@@ -67,8 +72,8 @@ document.querySelector('.game-board')
 // problem is figuring out the possible combinations and telling them to the computer and also checking each one as play is progressing possibly
 // more calculations but spread out throughout the match possible a lot more at the start
 
-------------------------------------------------------------------------------------------------------------------------------
-make a grid which can be changed by input by the user ( can be 3 or 6 now)
+// ------------------------------------------------------------------------------------------------------------------------------
+// make a grid which can be changed by input by the user ( can be 3 or 6 now)
 
 // write a function to take the information from the game board and place it into the results grid
 // needs to be placing it at the right spots

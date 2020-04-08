@@ -7,55 +7,63 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class="game-board">
-        <section class="game-board-one">
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-        </section>
-        <section class="game-board-two hidden">
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-        </section>
-        <section class="game-board-three hidden">
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-        </section>
-        <section class="game-board-four hidden">
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square first-row first-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square second-row second-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-            <div class="game-square third-row third-column"></div>
-        </section>
+    <h2>Noughts and Crosses</h2>
+    
+<section class="game-board">
+    <section class="game-board-one">
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
     </section>
-    <p class="winner"></p>
-    <button class="reset-btn">Reset</button>
-
-    <script src="app.js"></script>
+    <section class="game-board-two hidden">
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+    </section>
+    <section class="game-board-three hidden">
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+    </section>
+    <section class="game-board-four hidden">
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square first-row first-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square second-row second-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+        <div class="game-square third-row third-column"></div>
+    </section>
+</section>
+<p class="winner"></p>
+<button class="reset-btn">Reset</button>
+<footer>
+    <toggle class="game-mode">O&X+</toggle>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>

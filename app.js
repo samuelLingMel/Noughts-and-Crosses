@@ -312,17 +312,54 @@ var handleNextBtn = function(event) {
         for (var index = 1; index < 4; index++) {
             document.querySelectorAll('.gb')[index].classList.add('hidden')
         }
-        document.querySelector('.tute').textContent = 'Hold on before you play you need to learn the new rules. Press the skip button if you already know.';
+        document.querySelector('.tute').textContent = 'Noughts and Crosses Plus starts the same as a normal game.';
+        nextCounter++;
     } else if (nextCounter === 1) {
-        document.querySelector('.tute').textContent = 'This is Noughts and Crosses Plus.  Where it is different is that after 4 games of normal Noughts and Crosses then is compiles the boards from all four games and you get points for each 3 in a row amongst the new board. Now there is more strategy so do not give up if you lose a board just keep on filling it up. Try and beat the other persons score. Good luck.';
+        gameSquares[0].textContent = 'X';
+        gameSquares[1].textContent = 'X';
+        gameSquares[2].textContent = 'X';
+        gameSquares[3].textContent = 'O';
+        gameSquares[4].textContent = 'O';
+        document.querySelector('.tute').textContent = 'Except when someone "wins" you just keep playing to fill up the board.';
+        nextCounter++;
     } else if (nextCounter === 2) {
-
+        gameSquares[5].textContent = 'X';
+        gameSquares[6].textContent = 'X';
+        gameSquares[7].textContent = 'O';
+        gameSquares[8].textContent = 'O';
+        document.querySelector('.tute').textContent = 'Now that the board is full you will do that again but with 3 other boards.';
+        nextCounter++;
+    } else if (nextCounter === 3) {
+        for (var index = 0; index < 36; index += 2) {
+            gameSquares[index].textContent = 'X';
+        }
+        for (var index = 1; index < 36; index += 2) {
+            gameSquares[index].textContent = 'O';
+        }
+        for (var index = 0; index < 4; index++) {
+            document.querySelectorAll('.gb')[index].classList.remove('hidden')
+        }
+        document.querySelector('.tute').textContent = 'Here is how that would look.';
+        nextCounter++;
+    } else if (nextCounter === 4) {
+        document.querySelector('.score-btn').classList.remove('hidden');
+        document.querySelector('.tute').textContent = 'Now the game has ended and you tally up the score for each time you got three in a row in this new grid.';
+        nextCounter++;
+    } else if (nextCounter === 5) {
+        document.querySelector('.tute').textContent = 'A tie how rare... well now you know the rules so better luck next game.';
+        nextCounter++;
+    } else if (nextCounter === 6) {
+        handleResetBtn();
+        document.querySelector('.tute').textContent = 'Try to remember the order, 1st board is top-left, 2nd is top-right, 3rd is bottom-left and 4th is bottom-right.';
+        nextCounter = 10;
     } else if (nextCounter === 10) {
+        document.querySelector('.tute').textContent = '';
         gameEnd = false;
         for (var index = 1; index < 4; index++) {
             document.querySelectorAll('.gb')[index].classList.add('hidden');
         }
         document.querySelectorAll('.gb')[0].classList.remove('hidden');
+        document.querySelector('.score-btn').classList.add('hidden');
         document.querySelector('.next-btn').classList.add('hidden');
         document.querySelector('.skip-btn').classList.add('hidden');
         document.querySelector('.tute').textContent = '1st Board';
@@ -359,7 +396,6 @@ var handleNextBtn = function(event) {
         document.querySelector('.score-btn').classList.remove('hidden');
         document.querySelector('.reset-btn').classList.remove('hidden');
     }
-    
 }
 
 var handleSkipBtn = function(event) {
@@ -379,12 +415,12 @@ var handleResetBtn = function() {
     document.querySelector('.reset-btn').classList.add('hidden');
     document.querySelector('.end-btn').classList.add('hidden');
     document.querySelector('.tute').textContent = '';
-    document.querySelector('.score-btn').disable = false;
+    document.querySelector('.score-btn').disabled = false;
     document.querySelector('.oScore').textContent = "";
     document.querySelector('.xScore').textContent = "";
-    if (sizeInput === 6) {
-        document.querySelector('.oScore').classList.add('hidden');
-        document.querySelector('.xScore').classList.add('hidden');
+    if (sizeInput === 6 && gameEnd === true)  {
+        document.querySelector('.oScore').textContent = ``;
+        document.querySelector('.xScore').textContent = ``;
         document.querySelector('.score-btn').classList.add('hidden');
         nextCounter = 10;
         handleNextBtn();

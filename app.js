@@ -12,7 +12,7 @@ var nextCounter = 0;
 var checkGameEnded = function() {
     if (turnCounter === sizeInput ** 2) { 
         return true;
-    } else if (document.querySelector('.winner').textContent !== "") {
+    } else if (winner.textContent !== "") {
         return true;
     } else if (gameEnd === true) {
         return true;
@@ -33,10 +33,11 @@ var resizeBoard = function() {
 
 var diffStyle = function() {
     document.querySelector('h2').classList.toggle('fancy');
-    document.body.classList.toggle('invert-body')
+    document.body.classList.toggle('invert-body');
     gameSquares.forEach(function(partOfGameBoard) {
         partOfGameBoard.classList.toggle('invert-border');
     })
+    document.querySelector('.winner').classList.toggle('win');
     resizeBoard();
 } 
 
@@ -302,7 +303,7 @@ var handleStartBtn = function(event) {
         document.querySelector('.skip-btn').classList.remove('hidden');
         diffStyle();
         document.querySelector('h2').textContent = 'Noughts and Crosses +'
-        document.querySelector('.tute').textContent = 'Hold on before you play you need to learn the new rules. Press the skip button if you already know.';
+        document.querySelector('.tute').textContent = 'Hold on, before you play you need to learn the new rules. Press the skip button if you already know.';
     } 
 }
 
@@ -317,11 +318,11 @@ var handleNextBtn = function(event) {
     } else if (nextCounter === 2) {
 
     } else if (nextCounter === 10) {
-        handleResetBtn();
+        gameEnd = false;
         for (var index = 1; index < 4; index++) {
-            document.querySelectorAll('.gb')[index].classList.add('hidden')
+            document.querySelectorAll('.gb')[index].classList.add('hidden');
         }
-        document.querySelector('.gb').classList.remove('hidden');
+        document.querySelectorAll('.gb')[0].classList.remove('hidden');
         document.querySelector('.next-btn').classList.add('hidden');
         document.querySelector('.skip-btn').classList.add('hidden');
         document.querySelector('.tute').textContent = '1st Board';
@@ -351,11 +352,12 @@ var handleNextBtn = function(event) {
         // reminder to me to scale this later
         resizeBoard();
         for (var index = 0; index < 3; index++) {
-            document.querySelectorAll('.gb')[index].classList.remove('hidden')
+            document.querySelectorAll('.gb')[index].classList.remove('hidden');
         }
         document.querySelector('.tute').textContent = '';
-        document.querySelector('.next-btn').classList.add('hidden')
-        document.querySelector('.score-btn').classList.remove('hidden')
+        document.querySelector('.next-btn').classList.add('hidden');
+        document.querySelector('.score-btn').classList.remove('hidden');
+        document.querySelector('.reset-btn').classList.remove('hidden');
     }
     
 }
@@ -378,6 +380,15 @@ var handleResetBtn = function() {
     document.querySelector('.end-btn').classList.add('hidden');
     document.querySelector('.tute').textContent = '';
     document.querySelector('.score-btn').disable = false;
+    document.querySelector('.oScore').textContent = "";
+    document.querySelector('.xScore').textContent = "";
+    if (sizeInput === 6) {
+        document.querySelector('.oScore').classList.add('hidden');
+        document.querySelector('.xScore').classList.add('hidden');
+        document.querySelector('.score-btn').classList.add('hidden');
+        nextCounter = 10;
+        handleNextBtn();
+    }
 }
 
 var handleEndBtn = function() {
@@ -391,14 +402,35 @@ var handleEndBtn = function() {
         document.querySelector('.start-btn').classList.toggle('hidden');
         document.querySelector('.game-board-one').classList.remove('shrinkTo225');
         document.querySelector('.game-board').classList.remove('shrinkTo450');
-    } 
+    } else {
+        diffStyle();
+        nextCounter = 0;
+        for (var index = 0; index < 4; index++) {
+            document.querySelectorAll('.gb')[index].classList.add('hidden');
+        }
+        document.querySelector('.score-btn').classList.add('hidden');
+        document.querySelector('.game-mode').classList.remove('hidden');
+        document.querySelector('.game-mode-text').classList.remove('hidden');
+        document.querySelector('.start-btn').classList.remove('hidden');
+        document.querySelector('h2').textContent = 'Noughts and Crosses';
+        document.querySelector('.whose-turn').textContent = '';
+    }
 }
 
 var handleScoreBtn = function() {
     checkWinner(sizeInput);
     document.querySelector('.oScore').textContent = `O = ${oScore}`;
     document.querySelector('.xScore').textContent = `X = ${xScore}`;
+    
+    if (oScore > xScore) {
+        document.querySelector('.winner').textContent = 'Winner is O!'
+    } else if (xScore > oScore) {
+        document.querySelector('.winner').textContent = 'Winner is X!'
+    } else {
+        document.querySelector('.winner').textContent = 'It is a tie......'
+    }
     document.querySelector('.score-btn').disabled = true;
+    document.querySelector('.end-btn').classList.remove('hidden');
 }
 
 document.querySelector('.game-mode').addEventListener('click', handleGMToggle);

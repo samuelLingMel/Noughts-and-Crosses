@@ -70,7 +70,7 @@ button {
 }
 
 .fancy {
-    color: #f77532;
+    color: gray;
     font-family: cursive;
     font-size: 40px;
     text-align: center;
@@ -109,4 +109,13 @@ button {
     font-size: 20px;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.win {
+    color: #f77532;
+    font-size: 30px;
+}
+
+.oScore {
+    float: right;
 }

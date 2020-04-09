@@ -6,3 +6,4 @@ So I decided to try and add to that hence the +.
 My new game is more strategy based adding together the boards of four games to see who can make more 3 in a rows than the other person.
 
 Challenges I had was the algorithms to scale the game up to a 6x6 board which also kept in mind the option of bigger game boards. First translating the DOM to JS required an interesting amount of for loops, secondly win conditions to check every single combination of 3 regardless of board size especially the diagonals were very challenging. However these were the most enjoyable parts of the project for me.
+Still working on the tutorial for a step by step guide for the new rules.

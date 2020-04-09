@@ -7,16 +7,38 @@ var sizeInput = 3;
 var xScore = 0;
 var oScore = 0;
 var resultsGrid = [];
+var nextCounter = 0;
 
 var checkGameEnded = function() {
-        if (turnCounter === sizeInput ** 2) {
-                return true;
-        } else if (document.querySelector('.winner').textContent !== "") {
-            return true;
-        } else {
-            return false;
-        }
+    if (turnCounter === sizeInput ** 2) { 
+        return true;
+    } else if (document.querySelector('.winner').textContent !== "") {
+        return true;
+    } else if (gameEnd === true) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
+var resizeBoard = function() {
+    gameSquares.forEach(function(partOfGameBoard) {
+        partOfGameBoard.classList.toggle('resize-border');
+    })
+    document.querySelectorAll('.gb').forEach(function(partOfGameBoard) {
+        partOfGameBoard.classList.toggle('shrinkTo225');
+    })
+    document.querySelector('.game-board').classList.toggle('shrinkTo450');
+}
+
+var diffStyle = function() {
+    document.querySelector('h2').classList.toggle('fancy');
+    document.body.classList.toggle('invert-body')
+    gameSquares.forEach(function(partOfGameBoard) {
+        partOfGameBoard.classList.toggle('invert-border');
+    })
+    resizeBoard();
+} 
 
 var checkWinner = function() {
     if (sizeInput === 3) {
@@ -42,12 +64,12 @@ var checkWinner = function() {
         // check diagonal top right to bottom left
         checkDiagonalStartTopRight();
         
-        if (checkGameEnded() === true) {
-            if (winner.textcontent === '') {
-                winner.textContent = 'The game is tied';
-            }
+        if (checkGameEnded()) {
             document.querySelector('.reset-btn').classList.toggle('hidden');
             document.querySelector('.end-btn').classList.toggle('hidden');
+            if (winner.textContent === '') {
+                winner.textContent = 'The game is tied';
+            }
         }
     } else {
         createGrid(sizeInput);
@@ -59,7 +81,7 @@ var checkWinner = function() {
 }    
 
 var check3Same = function(arr) {
-    if (arr.length > 2) {
+    if ((arr.length) > 2) {
         for (var index = 0; index < arr.length - 2; index++) {
             if (arr[index] === arr[index + 1] && arr[index + 1] === arr[index + 2]) {
                 if (arr[index] === 'X') {
@@ -81,6 +103,8 @@ var checkRow = function(num) {
             }
             if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
                 winner.textContent = (checkArray[0] + ' is the winner!');
+                document.querySelector('.whose-turn').textContent = '';
+
             }
         }
     } else {
@@ -99,6 +123,7 @@ var checkColumn = function(num) {
             }
             if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
                 winner.textContent = (checkArray[0] + ' is the winner!');
+                document.querySelector('.whose-turn').textContent = '';
             }
         }
     } else {
@@ -121,6 +146,7 @@ var checkDiagonalStartTopLeft = function() {
             }
             if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
                 winner.textContent = (checkArray[0] + ' is the winner!');
+                document.querySelector('.whose-turn').textContent = '';
             }
         }
     } else {
@@ -157,6 +183,7 @@ var checkDiagonalStartTopRight = function() {
             }
             if (checkArray[0] === checkArray[1] && checkArray[1]=== checkArray[2]) {
                 winner.textContent = (checkArray[0] + ' is the winner!');
+                document.querySelector('.whose-turn').textContent = '';
             }
         }
     } else {
@@ -184,30 +211,20 @@ var checkDiagonalStartTopRight = function() {
     }
 } 
 
-var handleResetBtn = function() {
-    turnCounter = 0;
-    gameEnd = false;
-    gameSquares.forEach(function(gameSquare) {
-        gameSquare.textContent = '';
-    })
-    winner.textContent = '';
-}
-
-var handleEndBtn = function() {
-
-}
-
 var createGrid = function(num) {
-    for (var index1 = 0; index1 < num; index1++) {
-        let row = [];
-        for (var index2 = 0; index2 < num; index2++) {
-            let string = `${gameSquares[sizeInput * index1 + index2].textContent}`;
-            row.push(string);
+    for (var index0 = 0; index0 < num / 3; index0++) {
+        for (var index1 = 0; index1 < 3 * 3; index1 += 3) {
+            var horizontal = []; 
+            for (var index2 = 0; index2 < num / 3; index2++) {
+                for (var index3 = 0; index3 < 3; index3++) {
+                    let string = `${gameSquares[index0 * 18 + index2 * 9 + index1 + index3].textContent}`
+                    horizontal.push(string);
+                }
+            }
+            resultsGrid.push(horizontal);
         }
-        resultsGrid.push(row);
     }
 }
-
 
 var handleSquareClick = function(event) {
     if (checkGameEnded() === false) {
@@ -222,14 +239,23 @@ var handleSquareClick = function(event) {
                 
                 // increment turn counter
                 turnCounter++;
-
-                document.querySelector('.whose-turn').textContent = "It is Os turn now.";
+                
+                if (turnCounter === sizeInput ** 2) { 
+                    document.querySelector('.whose-turn').textContent = "";
+                } else {
+                    document.querySelector('.whose-turn').textContent = "It is Os turn now.";
+                }
             } else {
                 event.target.textContent = 'O';
                 
                 // increment turn counter
                 turnCounter++;
-                document.querySelector('.whose-turn').textContent = "It is Xs turn now.";
+
+                if (turnCounter === sizeInput ** 2) { 
+                    document.querySelector('.whose-turn').textContent = "";
+                } else {
+                    document.querySelector('.whose-turn').textContent = "It is Xs turn now.";
+                }
             }  
         }
         if (sizeInput === 3) {
@@ -239,40 +265,150 @@ var handleSquareClick = function(event) {
                 checkWinner();
             }
         } else {
-            if (turnCounter === 36) {
-                checkWinner();
-            }
+            if (turnCounter === 9 || turnCounter === 18 || turnCounter === 27) {
+                document.querySelector('.next-btn').classList.remove('hidden');
+                document.querySelector('.whose-turn').textContent = '';
+                nextCounter++;
+            } 
         }
     }       
 }
 
 var handleGMToggle = function(event) {
-    if (gameEnd === true) {
-        document.querySelectorAll('.gb').forEach(function(partOfGameBoard) {
-            partOfGameBoard.classList.toggle('hidden');
-        })
-        gameEnd = false;
+    if (sizeInput === 3) {
         sizeInput = 6;
+    } else {
+        sizeInput = 3;
     }
 }
 
 var handleStartBtn = function(event) {
     if (sizeInput === 3) {
-        document.querySelector('.game-board-one').classList.toggle('hidden');
+        document.querySelector('.game-board-one').classList.remove('hidden');
         document.querySelector('.whose-turn').textContent = 'It is Xs turn now.';
-        document.querySelector('.game-mode').classList.toggle('hidden');
-        document.querySelector('.game-mode-text').classList.toggle('hidden');
-        document.querySelector('.start-btn').classList.toggle('hidden');
+        document.querySelector('.game-mode').classList.add('hidden');
+        document.querySelector('.game-mode-text').classList.add('hidden');
+        document.querySelector('.start-btn').classList.add('hidden');
+        gameEnd = false;
+        document.querySelector('h2').textContent = 'Noughts and Crosses'
+    } else if (sizeInput === 6) {
+        document.querySelectorAll('.gb').forEach(function(partOfGameBoard) {
+            partOfGameBoard.classList.remove('hidden');
+        })
+        document.querySelector('.game-mode').classList.add('hidden');
+        document.querySelector('.game-mode-text').classList.add('hidden');
+        document.querySelector('.start-btn').classList.add('hidden');
+        document.querySelector('.next-btn').classList.remove('hidden');
+        document.querySelector('.skip-btn').classList.remove('hidden');
+        diffStyle();
+        document.querySelector('h2').textContent = 'Noughts and Crosses +'
+        document.querySelector('.tute').textContent = 'Hold on before you play you need to learn the new rules. Press the skip button if you already know.';
     } 
 }
 
+var handleNextBtn = function(event) {
+    if (nextCounter === 0) {
+        for (var index = 1; index < 4; index++) {
+            document.querySelectorAll('.gb')[index].classList.add('hidden')
+        }
+        document.querySelector('.tute').textContent = 'Hold on before you play you need to learn the new rules. Press the skip button if you already know.';
+    } else if (nextCounter === 1) {
+        document.querySelector('.tute').textContent = 'This is Noughts and Crosses Plus.  Where it is different is that after 4 games of normal Noughts and Crosses then is compiles the boards from all four games and you get points for each 3 in a row amongst the new board. Now there is more strategy so do not give up if you lose a board just keep on filling it up. Try and beat the other persons score. Good luck.';
+    } else if (nextCounter === 2) {
 
-document.querySelector('.end-btn').addEventListener('click', handleEndBtn);
-document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
+    } else if (nextCounter === 10) {
+        handleResetBtn();
+        for (var index = 1; index < 4; index++) {
+            document.querySelectorAll('.gb')[index].classList.add('hidden')
+        }
+        document.querySelector('.gb').classList.remove('hidden');
+        document.querySelector('.next-btn').classList.add('hidden');
+        document.querySelector('.skip-btn').classList.add('hidden');
+        document.querySelector('.tute').textContent = '1st Board';
+        resizeBoard();
+    } else if (nextCounter === 11) {
+        // reminder to me to scale this later
+        document.querySelector('.whose-turn').textContent = 'It is Os turn now.';
+        document.querySelectorAll('.gb')[0].classList.add('hidden');
+        document.querySelectorAll('.gb')[1].classList.remove('hidden');
+        document.querySelector('.tute').textContent = '2nd Board';
+        document.querySelector('.next-btn').classList.add('hidden')
+    } else if (nextCounter === 12) {
+        // reminder to me to scale this later
+        document.querySelector('.whose-turn').textContent = 'It is Xs turn now.';
+        document.querySelectorAll('.gb')[1].classList.add('hidden');
+        document.querySelectorAll('.gb')[2].classList.remove('hidden');
+        document.querySelector('.tute').textContent = '3rd Board';
+        document.querySelector('.next-btn').classList.add('hidden')
+    } else if (nextCounter === 13) {
+        // reminder to me to scale this later
+        document.querySelector('.whose-turn').textContent = 'It is Os turn now.';
+        document.querySelectorAll('.gb')[2].classList.add('hidden');
+        document.querySelectorAll('.gb')[3].classList.remove('hidden');
+        document.querySelector('.tute').textContent = '4th Board';
+        nextCounter++;
+    } else if (nextCounter === 14) {
+        // reminder to me to scale this later
+        resizeBoard();
+        for (var index = 0; index < 3; index++) {
+            document.querySelectorAll('.gb')[index].classList.remove('hidden')
+        }
+        document.querySelector('.tute').textContent = '';
+        document.querySelector('.next-btn').classList.add('hidden')
+        document.querySelector('.score-btn').classList.remove('hidden')
+    }
+    
+}
+
+var handleSkipBtn = function(event) {
+    nextCounter = 10;
+    handleNextBtn(); 
+}
+
+var handleResetBtn = function() {
+    turnCounter = 0;
+    gameEnd = false;
+    gameSquares.forEach(function(gameSquare) {
+        gameSquare.textContent = '';
+    })
+    winner.textContent = '';
+    resultsGrid = [];
+    document.querySelector('.whose-turn').textContent = 'It is Xs turn now.';
+    document.querySelector('.reset-btn').classList.add('hidden');
+    document.querySelector('.end-btn').classList.add('hidden');
+    document.querySelector('.tute').textContent = '';
+    document.querySelector('.score-btn').disable = false;
+}
+
+var handleEndBtn = function() {
+    handleResetBtn();
+    gameEnd = true;
+    if (sizeInput === 3) {
+        document.querySelector('.game-board-one').classList.toggle('hidden');
+        document.querySelector('.whose-turn').textContent = '';
+        document.querySelector('.game-mode').classList.toggle('hidden');
+        document.querySelector('.game-mode-text').classList.toggle('hidden');
+        document.querySelector('.start-btn').classList.toggle('hidden');
+        document.querySelector('.game-board-one').classList.remove('shrinkTo225');
+        document.querySelector('.game-board').classList.remove('shrinkTo450');
+    } 
+}
+
+var handleScoreBtn = function() {
+    checkWinner(sizeInput);
+    document.querySelector('.oScore').textContent = `O = ${oScore}`;
+    document.querySelector('.xScore').textContent = `X = ${xScore}`;
+    document.querySelector('.score-btn').disabled = true;
+}
+
 document.querySelector('.game-mode').addEventListener('click', handleGMToggle);
+document.querySelector('.start-btn').addEventListener('click', handleStartBtn);
+document.querySelector('.next-btn').addEventListener('click', handleNextBtn);
+document.querySelector('.skip-btn').addEventListener('click', handleSkipBtn);
+document.querySelector('.reset-btn').addEventListener('click', handleResetBtn);
+document.querySelector('.end-btn').addEventListener('click', handleEndBtn);
+document.querySelector('.score-btn').addEventListener('click', handleScoreBtn);
 
-gameSquares.forEach(function(gameSquare) {
+gameSquares.forEach(function(gameSquare) { 
     gameSquare.addEventListener('click', handleSquareClick);
 });
-
-document.querySelector('.start-btn').addEventListener('click', handleStartBtn)

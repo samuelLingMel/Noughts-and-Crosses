@@ -72,6 +72,17 @@ console.log(resultsGrid);
 03 04 05
 06 07 08
 
+// var createGrid = function(num) {
+//     for (var index1 = 0; index1 < num; index1++) {
+//         let row = [];
+//         for (var index2 = 0; index2 < num; index2++) {
+//             let string = `${gameSquares[sizeInput * index1 + index2].textContent}`;
+//             row.push(string);
+//         }
+//         resultsGrid.push(row);
+//     }
+// }
+
 // make everything scalable to a 6x6 or 9x9 grid but it is still 3 in a row to win and see who has the highest score
 // my options for scalability
 // 1 use for or forEach loops to go through each grid and search for 3 Xs or Os in a row
@@ -116,18 +127,18 @@ have something to show whose turn it is
 
 // description of game
 something like:
-This is Noughts and Crosses Plus. Game play is the same as normal Noughts and Crosses, take turns placing an O or X in a square. Where it is different is that after 4 games of normal Noughts and Crosses then is compiles the boards from all four games and you get points for each 3 in a row amongst the new board. Now there is more strategy so don't give up if you lose a board just keep on filling it up. Try and beat the other persons score. Good luck.
+This is Noughts and Crosses Plus.  Where it is different is that after 4 games of normal Noughts and Crosses then is compiles the boards from all four games and you get points for each 3 in a row amongst the new board. Now there is more strategy so don't give up if you lose a board just keep on filling it up. Try and beat the other persons score. Good luck.
 Slide Show?
 
 start button?
 features 
 - makes board unhidden toggle('hidden') if statement for different board states
-- shows reset button for 3x3
+// - shows reset button for 3x3
 - shows whose turn it is (textContent = It is Xs turn) 
-- set sizeInput = 3 or 6
-- change colours for 6x6 entails, body color white, body background color black, game-board border white
-- hide toggle
--change title to Noughts and Crosses + add font-family
+// - set sizeInput = 3 or 6
+// - change colours for 6x6 entails, body color white, body background color black, game-board border white
+// - hide toggle
+// -change title to Noughts and Crosses + add font-family
 
 end button must mirror start button but you know, the opposite to reset
 
@@ -147,3 +158,9 @@ when to check results 3x3 vs 6v6
 // fix  bugs
 
 
+document.querySelectorAll('.gb').forEach(function(partOfGameBoard) {
+    partOfGameBoard.classList.toggle('hidden');
+})
+
+colour pallette
+#e7e4de | #c3e1e5 | #aad0d4 | #68b8c1 |  #2a8a92 |  #f77532

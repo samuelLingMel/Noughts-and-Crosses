@@ -221,7 +221,7 @@ switcharoo(test1, 0, 8)
 console.log(test1);
 console.log(test2);
 
-switcharoo(document.querySelectorAll('.gb'), 0, 3);
+    switcharoo(document.querySelectorAll('.gb'), 0, 3);
 
 var createGrid = function(num) {
     for (var index0 = 0; index0 < num / 3; index0++) {
@@ -432,6 +432,8 @@ var handleResetBtn = function() {
     if (gameEnd)  {
         document.querySelector('.oScore').textContent = ``;
         document.querySelector('.xScore').textContent = ``;
+        oScore = 0;
+        xScore = 0;
         document.querySelector('.score-btn').classList.add('hidden');
         nextCounter = 10;
         handleNextBtn();

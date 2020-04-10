@@ -212,6 +212,17 @@ var checkDiagonalStartTopRight = function() {
     }
 } 
 
+var test1 = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+var test2 = [9, 10, 11 ,12, 13, 14, 15, 16, 17]
+var switcharoo = function(arr, index1, index2) {
+    [arr[index1], arr[index2]] = [arr[index2], arr[index1]]
+}
+switcharoo(test1, 0, 8)
+console.log(test1);
+console.log(test2);
+
+switcharoo(document.querySelectorAll('.gb'), 0, 3);
+
 var createGrid = function(num) {
     for (var index0 = 0; index0 < num / 3; index0++) {
         for (var index1 = 0; index1 < 3 * 3; index1 += 3) {
@@ -271,6 +282,7 @@ var handleSquareClick = function(event) {
                 document.querySelector('.whose-turn').textContent = '';
                 nextCounter++;
             } 
+            gameEnd = checkGameEnded();
         }
     }       
 }
@@ -405,7 +417,6 @@ var handleSkipBtn = function(event) {
 
 var handleResetBtn = function() {
     turnCounter = 0;
-    gameEnd = false;
     gameSquares.forEach(function(gameSquare) {
         gameSquare.textContent = '';
     })
@@ -418,12 +429,13 @@ var handleResetBtn = function() {
     document.querySelector('.score-btn').disabled = false;
     document.querySelector('.oScore').textContent = "";
     document.querySelector('.xScore').textContent = "";
-    if (sizeInput === 6 && gameEnd === true)  {
+    if (gameEnd)  {
         document.querySelector('.oScore').textContent = ``;
         document.querySelector('.xScore').textContent = ``;
         document.querySelector('.score-btn').classList.add('hidden');
         nextCounter = 10;
         handleNextBtn();
+        gameEnd = false;
     }
 }
 

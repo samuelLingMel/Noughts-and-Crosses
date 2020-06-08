@@ -9,4 +9,4 @@ Challenges I had was the algorithms to scale the game up to a 6x6 board which al
 
 Tutorial has been finished.
 
-More ideas, a module where you take turns to place the boards down at the end.
+More ideas, a module where you take turns to place the boards down at the end instead of having a definitive order.
